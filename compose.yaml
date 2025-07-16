@@ -1,0 +1,19 @@
+services:
+  nginxwebsvr:
+    image: nginx:alpine
+    container_name: nginxwebsvr
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+  mysqldb:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+
