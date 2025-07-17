@@ -9,7 +9,7 @@ const runTest = async () => {
     .build();
 
   try {
-    await driver.get('http://nginx'); // Access NGINX service
+    await driver.get('http://localhost:8080'); // Access NGINX service
 
     const heading = await driver.wait(
       until.elementLocated(By.css('h1')),
