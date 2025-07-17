@@ -1,5 +1,5 @@
 import { Builder, By, until } from 'selenium-webdriver';
-import chrome from 'selenium-webdriver/chrome';
+import chrome from 'selenium-webdriver/chrome.js';
 
 const runTest = async () => {
   const driver = await new Builder()
