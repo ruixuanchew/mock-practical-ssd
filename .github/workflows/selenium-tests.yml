@@ -31,8 +31,16 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Selenium WebDriver
+      - name: Install Dependencies
         run: npm install selenium-webdriver
+
+      - name: Wait for Selenium to be ready
+        run: |
+          for i in {1..10}; do
+            echo "Checking if Selenium is ready (attempt $i)..."
+            curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true' && break
+            sleep 5
+          done
 
       - name: Run Selenium Test
         run: node tests/SeleniumTest.mjs
