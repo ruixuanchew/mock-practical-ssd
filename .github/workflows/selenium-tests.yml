@@ -14,11 +14,7 @@ jobs:
         image: selenium/standalone-chrome
         ports:
           - 4444:4444
-        options: >-
-          --health-cmd="curl -s http://localhost:4444/wd/hub/status || exit 1"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
+
       nginx:
         image: nginx:alpine
         ports:
@@ -33,19 +29,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '18'
 
       - name: Install Selenium WebDriver
         run: npm install selenium-webdriver
 
-      - name: Wait for services
-        run: |
-          sleep 10
-          curl -f http://localhost || exit 1
-          curl -f http://localhost:4444/wd/hub/status || exit 1
-
       - name: Run Selenium Test
         run: node tests/SeleniumTest.mjs
-        env:
-          SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
 

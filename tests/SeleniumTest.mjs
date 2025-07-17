@@ -2,10 +2,14 @@ import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome';
 
 const runTest = async () => {
-  const driver = await new Builder().forBrowser('chrome').build();
+  const driver = await new Builder()
+    .forBrowser('chrome')
+    .usingServer('http://selenium:4444/wd/hub') // Connect to the GitHub Actions service
+    .setChromeOptions(new chrome.Options())
+    .build();
 
   try {
-    await driver.get('http://nginxwebsvr'); // Docker Compose hostname
+    await driver.get('http://nginx'); // Access NGINX service
 
     const heading = await driver.wait(
       until.elementLocated(By.css('h1')),
@@ -25,4 +29,3 @@ const runTest = async () => {
 };
 
 runTest();
-
