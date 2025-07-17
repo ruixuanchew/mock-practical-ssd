@@ -4,7 +4,7 @@ import chrome from 'selenium-webdriver/chrome.js';
 const runTest = async () => {
   const driver = await new Builder()
     .forBrowser('chrome')
-    .usingServer('http://selenium:4444/wd/hub') // Connect to the GitHub Actions service
+    .usingServer('http://localhost:4444/wd/hub') // Connect to the GitHub Actions service
     .setChromeOptions(new chrome.Options())
     .build();
 
