@@ -16,6 +16,13 @@ jobs:
         ports:
           - 4444:4444
 
+      nginx:
+        image: nginx:alpine
+        ports:
+          - 80:80
+        volumes:
+          - ./html:/usr/share/nginx/html:ro
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,18 +35,12 @@ jobs:
       - name: Install Dependencies
         run: npm install selenium-webdriver
 
-      - name: Install static server
-        run: npm install -g http-server
-
-      - name: Start local server
-        run: http-server ./html -p 8080 &
-
       - name: Wait for Selenium to be ready
         run: |
           for i in {1..10}; do
             echo "Checking if Selenium is ready (attempt $i)..."
             curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true' && break
-            sleep 5
+            sleep 3
           done
 
       - name: Run Selenium Test

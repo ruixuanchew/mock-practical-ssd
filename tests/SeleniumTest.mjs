@@ -4,12 +4,13 @@ import chrome from 'selenium-webdriver/chrome.js';
 const runTest = async () => {
   const driver = await new Builder()
     .forBrowser('chrome')
-    .usingServer('http://localhost:4444/wd/hub') // Connect to the GitHub Actions service
+    .usingServer('http://localhost:4444/wd/hub')
     .setChromeOptions(new chrome.Options())
     .build();
 
   try {
-    await driver.get('http://localhost:8080'); // Access NGINX service
+    // ACCESS VIA nginx SERVICE NAME
+    await driver.get('http://nginx');
 
     const heading = await driver.wait(
       until.elementLocated(By.css('h1')),
