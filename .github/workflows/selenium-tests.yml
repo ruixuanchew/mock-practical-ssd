@@ -21,7 +21,7 @@ jobs:
         ports:
           - 80:80
         volumes:
-          - ./html:/usr/share/nginx/html:ro
+          - ./html:/usr/share/nginx/html
 
     steps:
       - name: Checkout code
