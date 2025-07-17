@@ -33,15 +33,16 @@ jobs:
 
       - name: Serve static HTML
         run: |
-          http-server ./html -p 8080 &
-          sleep 3  # Give it a moment to boot up
+          nohup http-server ./html -p 8080 > server.log 2>&1 &
+          sleep 5  # Give it time to start
+          curl -f http://localhost:8080 || { echo "Static server failed to start"; cat server.log; exit 1; }
 
       - name: Wait for Selenium to be ready
         run: |
           for i in {1..10}; do
             echo "Checking if Selenium is ready (attempt $i)..."
             curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true' && break
-            sleep 5
+            sleep 3
           done
 
       - name: Run Selenium Test
