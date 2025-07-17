@@ -16,11 +16,6 @@ jobs:
         ports:
           - 4444:4444
 
-      nginx:
-        image: nginx:alpine
-        ports:
-          - 8080:80
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,7 +31,7 @@ jobs:
       - name: Install static server
         run: npm install -g http-server
 
-      - name: Serve static HTML (bypass nginx volume)
+      - name: Serve static HTML
         run: |
           http-server ./html -p 8080 &
           sleep 3  # Give it a moment to boot up
