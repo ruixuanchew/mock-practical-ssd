@@ -23,10 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESLint
-        run: |
-          mkdir -p reports
-          npx eslint . --format=@microsoft/eslint-formatter-sarif --output-file=reports/eslint-results.sarif
+      - name: Run ESLint (no SARIF)
+        run: npx eslint .
 
       - name: Upload SARIF to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
